@@ -45,6 +45,12 @@ function Initialize-WinUtilTabContent {
                     $sync.Form.Dispatcher.BeginInvoke([System.Windows.Threading.DispatcherPriority]::Background, [action]{ Invoke-WinUtilISOCheckExistingWork }) | Out-Null
                 }
             }
+            "Appearance" {
+                Initialize-WPFAppearance
+            }
+            "System Tools" {
+                Initialize-WPFSystemTools
+            }
         }
         # Controls built just now start unchecked, so anything already chosen by an import or a
         # preset has to be applied to them once they exist

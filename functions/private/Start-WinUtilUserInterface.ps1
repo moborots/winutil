@@ -229,6 +229,8 @@ function Start-WinUtilUserInterface {
                 "C" { Invoke-WPFButton "WPFTab3BT"; $keyEventArgs.Handled = $true } # Navigate to Config tab
                 "U" { Invoke-WPFButton "WPFTab4BT"; $keyEventArgs.Handled = $true } # Navigate to Updates tab
                 "W" { Invoke-WPFButton "WPFTab5BT"; $keyEventArgs.Handled = $true } # Navigate to Win11ISO tab
+                "A" { Invoke-WPFButton "WPFTab7BT"; $keyEventArgs.Handled = $true } # Navigate to Appearance tab
+                "S" { Invoke-WPFButton "WPFTab8BT"; $keyEventArgs.Handled = $true } # Navigate to System Tools tab
             }
         }
         # Handle Ctrl key combinations for specific actions
@@ -447,13 +449,14 @@ function Start-WinUtilUserInterface {
         Invoke-WPFPopup -Action "Hide" -Popups @("Settings")
 
         $authorInfo = @"
-Author   : <a href="https://github.com/ChrisTitusTech">@ChrisTitusTech</a>
+Author   : <a href="https://github.com/moborots">@moborots</a>
+Project  : <a href="https://github.com/moborots/winutil">Moborots WinUtil</a>
+Version  : <a href="https://github.com/moborots/winutil/releases">$($sync.version)</a>
+Based on : <a href="https://github.com/ChrisTitusTech/winutil">ChrisTitusTech/winutil</a>
 UI       : <a href="https://github.com/MyDrift-user">@MyDrift-user</a>, <a href="https://github.com/Marterich">@Marterich</a>
 Runspace : <a href="https://github.com/DeveloperDurp">@DeveloperDurp</a>, <a href="https://github.com/Marterich">@Marterich</a>
-GitHub   : <a href="https://github.com/ChrisTitusTech/winutil">ChrisTitusTech/winutil</a>
-Version  : <a href="https://github.com/ChrisTitusTech/winutil/releases/tag/$($sync.version)">$($sync.version)</a>
 "@
-        Show-CustomDialog -Title "About" -Message $authorInfo
+        Show-CustomDialog -Title "About Moborots WinUtil" -Message $authorInfo
     })
     $sync["DocumentationMenuItem"].Add_Click({
         Invoke-WPFPopup -Action "Hide" -Popups @("Settings")

@@ -1,0 +1,35 @@
+---
+title: Windows 11 Appearance
+description: Customize Windows 11 theme, accent color, transparency, taskbar alignment, animations, and wallpaper in WinUtil.
+---
+
+The **Appearance** tab lets you customize visual settings for the current Windows user. It is intended for Windows 11 (build 22000 or later).
+
+## Available settings
+
+- **Theme:** keep the current Windows theme, or select Dark or Light.
+- **Accent color:** choose from the built-in Windows accent color presets.
+- **Transparency:** enable or disable Windows transparency effects.
+- **Animations:** enable or disable taskbar and minimize/maximize animations.
+- **Taskbar alignment:** move the taskbar icons to the left or center.
+- **Wallpaper:** select a local JPG, PNG, BMP, or TIFF image.
+
+## Apply and restore
+
+1. Open the **Appearance** tab.
+2. Choose the settings you want.
+3. Select **Apply changes**.
+4. Use **Restore previous appearance** to restore the original values captured before the first apply.
+
+The original user-level registry values are saved in:
+
+`%LOCALAPPDATA%\winutil\appearance-backup.json`
+
+The backup is removed after a successful restore. The feature does not remove apps, disable services, or change Windows performance settings.
+
+## Notes
+
+- Changes apply to the current Windows user (HKCU).
+- Some taskbar changes may require signing out or restarting Windows Explorer.
+- The theme option named **Keep current (Auto)** leaves the existing Windows theme unchanged; it does not schedule automatic day/night switching.
+- WinUtil checks the Windows build before enabling the feature. Other Windows versions cannot apply the settings from this panel.

@@ -1134,6 +1134,22 @@
                         </TextBlock>
                     </ToggleButton.Content>
                 </ToggleButton>
+                <ToggleButton Style="{StaticResource TabToggleButton}" Margin="0,0,5,0" Height="{DynamicResource TabButtonHeight}" Width="Auto" MinWidth="{DynamicResource TabButtonWidth}"
+                    Background="{DynamicResource ButtonConfigBackgroundColor}" Foreground="{DynamicResource ButtonConfigForegroundColor}" FontWeight="Bold" Name="WPFTab7BT">
+                    <ToggleButton.Content>
+                        <TextBlock FontSize="{DynamicResource TabButtonFontSize}" Background="Transparent" Foreground="{DynamicResource ButtonConfigForegroundColor}">
+                            <Underline>A</Underline>ppearance
+                        </TextBlock>
+                    </ToggleButton.Content>
+                </ToggleButton>
+                <ToggleButton Style="{StaticResource TabToggleButton}" Margin="0,0,5,0" Height="{DynamicResource TabButtonHeight}" Width="Auto" MinWidth="{DynamicResource TabButtonWidth}"
+                    Background="{DynamicResource ButtonConfigBackgroundColor}" Foreground="{DynamicResource ButtonConfigForegroundColor}" FontWeight="Bold" Name="WPFTab8BT">
+                    <ToggleButton.Content>
+                        <TextBlock FontSize="{DynamicResource TabButtonFontSize}" Background="Transparent" Foreground="{DynamicResource ButtonConfigForegroundColor}">
+                            <Underline>S</Underline>ystem Tools
+                        </TextBlock>
+                    </ToggleButton.Content>
+                </ToggleButton>
             </StackPanel>
 
             <!-- Search Bar and Action Buttons -->
@@ -2455,6 +2471,159 @@
                         </WrapPanel>
                     </Border>
                 </Grid>
+            </TabItem>
+            <TabItem Header="Appearance" Visibility="Collapsed" Name="WPFTab7">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="{DynamicResource TabContentMargin}">
+                    <Grid Background="Transparent" MaxWidth="1050" HorizontalAlignment="Center" Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Margin="8,8,8,16">
+                            <TextBlock Text="Windows 11 Appearance" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
+                            <TextBlock Text="Customize the appearance of your Windows 11 user account. WinUtil saves a backup of the original settings so you can restore them." Margin="0,6,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                        </StackPanel>
+                        <Border Grid.Row="1" Style="{StaticResource BorderStyle}" Margin="5">
+                            <StackPanel Margin="12">
+                                <TextBlock Text="Theme and colors" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
+                                <Grid Margin="0,4">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="220"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Windows theme" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}"/>
+                                    <ComboBox Name="WPFAppearanceThemeCombo" Grid.Column="1" Width="220" HorizontalAlignment="Left">
+                                        <ComboBoxItem Content="Keep current (Auto)"/>
+                                        <ComboBoxItem Content="Dark"/>
+                                        <ComboBoxItem Content="Light"/>
+                                    </ComboBox>
+                                </Grid>
+                                <Grid Margin="0,4">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="220"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Accent color" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}"/>
+                                    <ComboBox Name="WPFAppearanceAccentCombo" Grid.Column="1" Width="220" HorizontalAlignment="Left">
+                                        <ComboBoxItem Content="Keep current" Tag="KeepCurrent"/>
+                                        <ComboBoxItem Content="Windows blue" Tag="Blue"/>
+                                        <ComboBoxItem Content="Purple" Tag="Purple"/>
+                                        <ComboBoxItem Content="Pink" Tag="Pink"/>
+                                        <ComboBoxItem Content="Red" Tag="Red"/>
+                                        <ComboBoxItem Content="Orange" Tag="Orange"/>
+                                        <ComboBoxItem Content="Green" Tag="Green"/>
+                                        <ComboBoxItem Content="Teal" Tag="Teal"/>
+                                    </ComboBox>
+                                </Grid>
+                                <CheckBox Name="WPFAppearanceTransparencyCheck" Content="Enable transparency effects" Margin="0,8,0,4" Foreground="{DynamicResource MainForegroundColor}"/>
+                                <CheckBox Name="WPFAppearanceAnimationsCheck" Content="Enable taskbar and window animations" Margin="0,4" Foreground="{DynamicResource MainForegroundColor}"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="2" Style="{StaticResource BorderStyle}" Margin="5">
+                            <StackPanel Margin="12">
+                                <TextBlock Text="Taskbar" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="220"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Taskbar alignment" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}"/>
+                                    <ComboBox Name="WPFAppearanceTaskbarCombo" Grid.Column="1" Width="220" HorizontalAlignment="Left">
+                                        <ComboBoxItem Content="Left"/>
+                                        <ComboBoxItem Content="Center"/>
+                                    </ComboBox>
+                                </Grid>
+                                <TextBlock Text="Note: Windows 11 may require signing out or restarting Explorer for taskbar alignment changes to appear." TextWrapping="Wrap" Margin="0,8,0,0" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="3" Style="{StaticResource BorderStyle}" Margin="5">
+                            <StackPanel Margin="12">
+                                <TextBlock Text="Desktop wallpaper" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                    <TextBox Name="WPFAppearanceWallpaperTextBox" Grid.Column="0" MinWidth="300" VerticalContentAlignment="Center" ToolTip="Path to a JPG, PNG, BMP or TIFF image"/>
+                                    <Button Name="WPFAppearanceBrowseButton" Grid.Column="1" Content="Browse..." Margin="8,0,0,0" Padding="16,5"/>
+                                </Grid>
+                                <TextBlock Text="Leave the path empty to keep the current wallpaper." Margin="0,6,0,0" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="4" Style="{StaticResource BorderStyle}" Margin="5">
+                            <StackPanel Margin="12">
+                                <WrapPanel Orientation="Horizontal">
+                                    <Button Name="WPFAppearanceApplyButton" Content="Apply changes" Margin="3" Padding="18,7" FontWeight="Bold"/>
+                                    <Button Name="WPFAppearanceRestoreButton" Content="Restore previous appearance" Margin="3" Padding="18,7"/>
+                                </WrapPanel>
+                                <TextBlock Name="WPFAppearanceStatus" Text="Select your appearance options, then click Apply changes." TextWrapping="Wrap" Margin="4,8,4,2" Foreground="{DynamicResource MainForegroundColor}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="System Tools" Visibility="Collapsed" Name="WPFTab8">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="{DynamicResource TabContentMargin}">
+                    <Grid Background="Transparent" MaxWidth="1100" HorizontalAlignment="Center" Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Margin="8,8,8,14">
+                            <TextBlock Text="System Tools | ابزارهای سیستم" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
+                            <TextBlock Text="Read-only system information and safe file inventory. This page does not open or modify protected registry hive files." Margin="0,6,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                            <TextBlock Text="نمایش اطلاعات ویندوز و فهرست فایل‌ها به‌صورت فقط‌خواندنی؛ محتوای فایل‌های حساس رجیستری باز یا تغییر داده نمی‌شود." Margin="0,4,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                        </StackPanel>
+                                                <Border Grid.Row="1" Style="{StaticResource BorderStyle}" Margin="5">
+                            <StackPanel Margin="12">
+                                <TextBlock Text="Personalization Shortcuts | میان‌برهای شخصی‌سازی" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
+                                <WrapPanel>
+                                    <Button Name="WPFSystemStartSettingsButton" Content="Start Menu | منوی استارت" Padding="14,7" Margin="3"/>
+                                    <Button Name="WPFSystemTaskbarSettingsButton" Content="Taskbar | نوار وظیفه" Padding="14,7" Margin="3"/>
+                                    <Button Name="WPFSystemCursorSettingsButton" Content="Mouse Cursor | نشانگر ماوس" Padding="14,7" Margin="3"/>
+                                    <Button Name="WPFSystemMousePropertiesButton" Content="Cursor Schemes | طرح نشانگر" Padding="14,7" Margin="3"/>
+                                </WrapPanel>
+                                <TextBlock Text="These buttons open the built-in Windows settings so you can change options supported by your Windows build." TextWrapping="Wrap" Margin="3,7,3,0" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
+                                <TextBlock Text="این دکمه‌ها تنظیمات داخلی ویندوز را باز می‌کنند تا گزینه‌های پشتیبانی‌شده در نسخه ویندوز خود را تغییر دهید." TextWrapping="Wrap" Margin="3,4,3,0" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
+                            </StackPanel>
+                        </Border>
+<Border Grid.Row="2" Style="{StaticResource BorderStyle}" Margin="5">
+                            <StackPanel Margin="12">
+                                <TextBlock Text="Windows Edition | نسخه ویندوز" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
+                                <TextBlock Name="WPFSystemEditionInfo" Text="Loading Windows edition..." TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                                <TextBlock Text="Edition changes require a supported Microsoft upgrade path and a valid license. This panel only detects your current edition." Margin="0,6,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
+                                <TextBlock Text="تغییر نسخه ویندوز فقط از مسیر رسمی مایکروسافت و با مجوز معتبر انجام می‌شود. این قسمت فعلاً فقط نسخه فعلی را شناسایی می‌کند." Margin="0,4,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
+                                <WrapPanel Margin="0,8,0,0">
+                                    <Button Name="WPFSystemEditionTargetsButton" Content="Check upgrade paths | بررسی مسیر ارتقا" Padding="14,7" Margin="3"/>
+                                    <Button Name="WPFSystemEditionActivationButton" Content="Activation Settings | فعال‌سازی ویندوز" Padding="14,7" Margin="3"/>
+                                </WrapPanel>
+                                <TextBlock Name="WPFSystemEditionTargetsInfo" Text="Upgrade targets have not been checked. / مسیرهای ارتقا هنوز بررسی نشده‌اند." TextWrapping="Wrap" Margin="3,6,3,0" Foreground="{DynamicResource MainForegroundColor}"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="3" Style="{StaticResource BorderStyle}" Margin="5">
+                            <Grid Margin="12">
+                                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                                <DockPanel Grid.Row="0" LastChildFill="False" Margin="0,0,0,8">
+                                    <StackPanel DockPanel.Dock="Left">
+                                        <TextBlock Text="System32\\config File Viewer" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <TextBlock Text="فهرست فایل‌های پوشه C:\\Windows\\System32\\config" Margin="0,3,0,0" Foreground="{DynamicResource MainForegroundColor}"/>
+                                    </StackPanel>
+                                    <Button Name="WPFSystemConfigRefreshButton" Content="Refresh | تازه‌سازی" DockPanel.Dock="Right" Padding="14,6" Margin="8,0,0,0"/>
+                                </DockPanel>
+                                <TextBlock Grid.Row="1" Name="WPFSystemConfigStatus" Text="Click Refresh to list file names and metadata." TextWrapping="Wrap" Margin="0,0,0,8" Foreground="{DynamicResource MainForegroundColor}"/>
+                                <DataGrid Grid.Row="2" Name="WPFSystemConfigFiles" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="True" HeadersVisibility="Column" MinHeight="220" MaxHeight="420" Background="{DynamicResource SurfaceBackgroundColor}" Foreground="{DynamicResource MainForegroundColor}" BorderBrush="{DynamicResource BorderColor}" GridLinesVisibility="Horizontal">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name | نام فایل" Binding="{Binding Name}" Width="2*"/>
+                                        <DataGridTextColumn Header="Size (bytes) | حجم" Binding="{Binding Length}" Width="*"/>
+                                        <DataGridTextColumn Header="Last modified | آخرین تغییر" Binding="{Binding LastWriteTime}" Width="2*"/>
+                                        <DataGridTextColumn Header="Attributes | ویژگی‌ها" Binding="{Binding Attributes}" Width="2*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </Border>
+                        <Border Grid.Row="4" Style="{StaticResource BorderStyle}" Margin="5">
+                            <StackPanel Margin="12">
+                                <TextBlock Text="Safety note | نکته امنیتی" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
+                                <TextBlock Text="The config folder contains protected Windows registry hive files such as SAM, SYSTEM, SOFTWARE and SECURITY. Moborots only lists their metadata; it does not read, export, replace or delete them." TextWrapping="Wrap" Margin="0,5,0,0" Foreground="{DynamicResource MainForegroundColor}"/>
+                                <TextBlock Text="این پوشه شامل فایل‌های حساس رجیستری مانند SAM، SYSTEM، SOFTWARE و SECURITY است. برنامه فقط نام و مشخصات فایل‌ها را نمایش می‌دهد و محتوای آن‌ها را نمی‌خواند، کپی یا حذف نمی‌کند." TextWrapping="Wrap" Margin="0,4,0,0" Foreground="{DynamicResource MainForegroundColor}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
         </TabControl>
 
