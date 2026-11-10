@@ -1,91 +1,174 @@
-# Chris Titus Tech's Windows Utility
+# Moborots WinUtil
 
-[![Version](https://img.shields.io/github/v/release/ChrisTitusTech/winutil?color=%230567ff&label=Latest%20Release&style=for-the-badge)](https://github.com/ChrisTitusTech/winutil/releases/latest)
-![Downloads](https://img.shields.io/github/downloads/ChrisTitusTech/winutil/winutil.ps1?label=Total%20Downloads&style=for-the-badge)
-[![Discord](https://dcbadge.limes.pink/api/server/https://discord.gg/RUbZUZyByQ?theme=default-inverted&style=for-the-badge)](https://discord.gg/RUbZUZyByQ)
+**A bilingual Windows utility toolkit based on [Chris Titus Tech's WinUtil](https://github.com/ChrisTitusTech/winutil), customized and extended by Moborots.**
 
-A curated compilation of Windows system tasks to streamline **installs**, debloat with **tweaks**, troubleshoot with **config**, and configure **Windows updates**. Run it fresh on every new Windows install.
+**ابزار دوزبانه مدیریت و بهینه‌سازی ویندوز** بر پایه پروژه Chris Titus Tech که توسط Moborots شخصی‌سازی و توسعه داده می‌شود.
 
-![Title Screen](docs/src/assets/branding/title-screen.png)
-
-
----
-
-## Quick Start
-
-> **WinUtil must be run as Administrator** because it performs system-wide changes.
-
-Open PowerShell or Terminal as admin, then run:
-
-**Stable Branch (recommended)**
-```ps1
-irm https://christitus.com/win | iex
-```
-
-**Development Branch**
-```ps1
-irm https://christitus.com/windev | iex
-```
-
-### How to open an admin terminal
-
-- **Start menu:** Right-click Start → *Windows PowerShell (Admin)* or *Terminal (Admin)*
-- **Search:** Press the `Windows key`, and type `PowerShell` or `Terminal`, then `Ctrl + Shift + Enter`
+<p align="center">
+  <a href="https://github.com/moborots/winutil"><img alt="GitHub repository" src="https://img.shields.io/badge/GitHub-Moborots%2FWinUtil-181717?logo=github"></a>
+  <img alt="Platform" src="https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D4?logo=windows">
+  <img alt="PowerShell" src="https://img.shields.io/badge/PowerShell-5.1%2B-5391FE?logo=powershell">
+  <img alt="Status" src="https://img.shields.io/badge/Status-Development-orange">
+</p>
 
 ---
 
-## Automation / Presets
+## Quick Start | شروع سریع
 
-Apply a predefined configuration without manual selection:
+> [!WARNING]
+> **Administrator privileges are required.** WinUtil changes Windows settings and may install or remove system components. Review every selection before applying it.
+>
+> **اجرای برنامه با دسترسی Administrator ضروری است.** این ابزار تنظیمات ویندوز را تغییر می‌دهد و ممکن است اجزای سیستمی را نصب یا حذف کند. پیش از اعمال هر تغییر، گزینه‌ها را بررسی کنید.
+
+### 1. Requirements | پیش‌نیازها
+
+**English**
+- Windows 10 or Windows 11.
+- PowerShell and an internet connection.
+- [Git for Windows](https://git-scm.com/download/win) to clone and update the repository.
+- Administrator access.
+- Create a restore point or back up important data before applying system tweaks.
+
+**فارسی**
+- ویندوز ۱۰ یا ویندوز ۱۱.
+- PowerShell و اتصال اینترنت.
+- نصب [Git for Windows](https://git-scm.com/download/win) برای دریافت و به‌روزرسانی مخزن.
+- دسترسی Administrator.
+- قبل از اعمال تغییرات سیستمی، نقطه بازیابی (Restore Point) بسازید و از اطلاعات مهم پشتیبان بگیرید.
+
+### 2. Stable Branch (recommended) | نسخه پایدار (پیشنهادی)
+
+**English:** Open **PowerShell / Windows Terminal as Administrator**, then run:
+
+**فارسی:** ابتدا PowerShell یا Windows Terminal را با گزینه **Run as administrator** باز کنید و دستورات زیر را اجرا کنید:
 
 ```powershell
-& ([ScriptBlock]::Create((irm https://christitus.com/win))) -Preset Standard
+Set-ExecutionPolicy -Scope Process Bypass -Force
+Set-Location $HOME
+git clone -b main https://github.com/moborots/winutil.git
+Set-Location .\winutil
+.\Compile.ps1
+.\Compile.ps1 -Run
 ```
 
-| Preset | Description |
-|--------|-------------|
-| `Standard` | Balanced defaults for most users |
-| `Minimal` | Minimal changes to suit every user |
-| `Advanced` | Deep tweaks for power users |
+### 3. Preview / Development Branch | نسخه آزمایشی و توسعه
 
-To view exactly what each preset does, see:
-https://github.com/ChrisTitusTech/winutil/blob/main/config/preset.json
+> [!CAUTION]
+> This branch may contain unfinished features. Use it for testing, not as your primary system-maintenance tool.
+>
+> این شاخه ممکن است قابلیت‌های تکمیل‌نشده داشته باشد. از آن برای آزمایش استفاده کنید، نه به‌عنوان نسخه اصلی نگهداری سیستم.
+
+```powershell
+Set-ExecutionPolicy -Scope Process Bypass -Force
+Set-Location $HOME
+git clone -b feature/windows-11-appearance https://github.com/moborots/winutil.git winutil-preview
+Set-Location .\winutil-preview
+.\Compile.ps1
+.\Compile.ps1 -Run
+```
+
+### 4. Update an existing copy | به‌روزرسانی نسخه دریافت‌شده
+
+**Stable | پایدار**
+```powershell
+Set-Location "$HOME\winutil"
+git switch main
+git pull --ff-only origin main
+.\Compile.ps1
+.\Compile.ps1 -Run
+```
+
+**Preview | آزمایشی**
+```powershell
+Set-Location "$HOME\winutil-preview"
+git switch feature/windows-11-appearance
+git pull --ff-only origin feature/windows-11-appearance
+.\Compile.ps1
+.\Compile.ps1 -Run
+```
+
+### 5. Open an Administrator terminal | باز کردن ترمینال با دسترسی ادمین
+
+- **Start menu | منوی استارت:** Right-click Start → **Terminal (Admin)**.
+- **Search | جست‌وجو:** Press the Windows key, search for PowerShell or Terminal, then press **Ctrl + Shift + Enter**.
+- **فارسی:** روی Start راست‌کلیک کنید و Windows Terminal (Admin) را انتخاب کنید؛ یا در جست‌وجوی ویندوز PowerShell را پیدا کرده و با Ctrl + Shift + Enter اجرا کنید.
 
 ---
 
-## Build & Develop
+## Features | امکانات
 
-See https://github.com/ChrisTitusTech/winutil/blob/main/.github/CONTRIBUTING.md
+| Feature | توضیحات فارسی |
+|---|---|
+| **Application Installer** | نصب و مدیریت نرم‌افزارهای منتخب ویندوز |
+| **Windows Tweaks** | تنظیمات و بهینه‌سازی‌های ویندوز |
+| **Configuration** | ابزارهای پیکربندی و مدیریت بخش‌های مختلف سیستم |
+| **Windows Updates** | مدیریت تنظیمات به‌روزرسانی ویندوز |
+| **Windows 11 ISO** | ابزارهای مرتبط با دریافت و آماده‌سازی ISO ویندوز ۱۱ |
+| **Appearance (Preview)** | شخصی‌سازی ظاهر ویندوز ۱۱؛ شامل تم، رنگ تأکیدی، شفافیت و نوار وظیفه |
+| **Backup & Restore (Appearance)** | تهیه نسخه پشتیبان و بازگردانی تنظیمات ظاهری پشتیبانی‌شده |
+| **Diagnostics Export** | خروجی گرفتن از گزارش تشخیصی سیستم برای عیب‌یابی |
+| **Import / Export** | وارد کردن و خروجی گرفتن از تنظیمات پشتیبانی‌شده |
 
----
-
-## Resources
-
-- [Official Documentation](https://winutil.christitus.com/)
-- [YouTube Tutorial](https://www.youtube.com/watch?v=6UQZ5oQg8XA)
-- [ChrisTitus.com Article](https://christitus.com/windows-tool/)
-- [Known Issues](https://winutil.christitus.com/knownissues/)
-- [Report an Issue](https://github.com/ChrisTitusTech/winutil/issues)
-
----
-
-## Support
-
-- Leave a ⭐ to show support! 😊
-- Faster Dotnet Implementation for sale here: https://www.cttstore.com/windows-toolbox
-
-## Sponsors
-
-These are the sponsors that help keep this project alive with monthly contributions.
-
-<!-- sponsors --><a href="https://github.com/dwelfusius"><img src="https:&#x2F;&#x2F;github.com&#x2F;dwelfusius.png" width="60px" alt="User avatar: " /></a><a href="https://github.com/mews-se"><img src="https:&#x2F;&#x2F;github.com&#x2F;mews-se.png" width="60px" alt="User avatar: Martin" /></a><a href="https://github.com/jdiegmueller"><img src="https:&#x2F;&#x2F;github.com&#x2F;jdiegmueller.png" width="60px" alt="User avatar: Jason A. Diegmueller" /></a><a href="https://github.com/robertsandrock"><img src="https:&#x2F;&#x2F;github.com&#x2F;robertsandrock.png" width="60px" alt="User avatar: RMS" /></a><a href="https://github.com/paulsheets"><img src="https:&#x2F;&#x2F;github.com&#x2F;paulsheets.png" width="60px" alt="User avatar: Paul" /></a><a href="https://github.com/djones369"><img src="https:&#x2F;&#x2F;github.com&#x2F;djones369.png" width="60px" alt="User avatar: Dave J  (WhamGeek)" /></a><a href="https://github.com/anthonymendez"><img src="https:&#x2F;&#x2F;github.com&#x2F;anthonymendez.png" width="60px" alt="User avatar: Anthony Mendez" /></a><a href="https://github.com/FatBastard0"><img src="https:&#x2F;&#x2F;github.com&#x2F;FatBastard0.png" width="60px" alt="User avatar: " /></a><a href="https://github.com/DursleyGuy"><img src="https:&#x2F;&#x2F;github.com&#x2F;DursleyGuy.png" width="60px" alt="User avatar: DursleyGuy" /></a><a href="https://github.com/DwayneTheRockLobster1"><img src="https:&#x2F;&#x2F;github.com&#x2F;DwayneTheRockLobster1.png" width="60px" alt="User avatar: " /></a><a href="https://github.com/KieraKujisawa"><img src="https:&#x2F;&#x2F;github.com&#x2F;KieraKujisawa.png" width="60px" alt="User avatar: Kiera Meredith" /></a><a href="https://github.com/seanh1995"><img src="https:&#x2F;&#x2F;github.com&#x2F;seanh1995.png" width="60px" alt="User avatar: Sean (ANGRYxScotsman)" /></a><a href="https://github.com/josencarnacao"><img src="https:&#x2F;&#x2F;github.com&#x2F;josencarnacao.png" width="60px" alt="User avatar: José Encarnação" /></a><!-- sponsors -->
-
-*<sub>Sponsors with a recurring subscription also get access to the .NET alternative.</sub>
+> **Note | توجه:** Appearance is currently available on the `feature/windows-11-appearance` preview branch. It is not included in `main` until the feature is reviewed and merged.
+>
+> قابلیت Appearance فعلاً در شاخه آزمایشی `feature/windows-11-appearance` قرار دارد و تا زمان بررسی و ادغام، در شاخه `main` موجود نیست.
 
 ---
 
-## Contributors
+## Troubleshooting | رفع مشکلات رایج
 
-[![Contributors](https://contrib.rocks/image?repo=ChrisTitusTech/winutil)](https://github.com/ChrisTitusTech/winutil/graphs/contributors)
+**The script does not run | اسکریپت اجرا نمی‌شود**
+- Make sure PowerShell is running as Administrator.
+- Run: `Set-ExecutionPolicy -Scope Process Bypass -Force`
+- مطمئن شوید ترمینال را با دسترسی Administrator باز کرده‌اید.
 
-Thanks to everyone who has contributed time and effort to this project. Keep rocking 🍻
+**Git is not recognized | دستور Git شناخته نمی‌شود**
+- Install Git for Windows, close the terminal, open it again, and run `git --version`.
+- Git for Windows را نصب کنید، ترمینال را ببندید و دوباره باز کنید.
+
+**The folder already exists | پوشه از قبل وجود دارد**
+- Do not clone into the same folder again. Open the existing folder and use the update commands above.
+- اگر پوشه وجود دارد، دوباره Clone نکنید؛ وارد همان پوشه شوید و دستورات به‌روزرسانی را اجرا کنید.
+
+**The application does not open | برنامه باز نمی‌شود**
+- Run `git status` and `git branch --show-current` to check the repository and branch.
+- Retry `.\Compile.ps1` and review any error shown in the terminal.
+- شاخه فعال و خطاهای نمایش‌داده‌شده در ترمینال را بررسی کنید.
+
+---
+
+## Safety & Recovery | امنیت و بازگردانی
+
+**English**
+- Read the description of each tweak before applying it.
+- Avoid applying multiple unknown tweaks at once.
+- Back up important files and create a Windows restore point first.
+- Some changes require signing out or restarting Windows to take effect.
+- This project is provided as-is; test preview features carefully.
+
+**فارسی**
+- توضیحات هر تغییر را پیش از اجرا بخوانید.
+- چند تنظیم ناشناخته را هم‌زمان اعمال نکنید.
+- از فایل‌های مهم پشتیبان بگیرید و Restore Point ایجاد کنید.
+- بعضی تغییرات برای اعمال شدن به خروج از حساب کاربری یا راه‌اندازی مجدد ویندوز نیاز دارند.
+- مسئولیت بررسی و انتخاب تغییرات بر عهده کاربر است؛ قابلیت‌های آزمایشی را با احتیاط تست کنید.
+
+---
+
+## Development | توسعه پروژه
+
+- **Repository:** https://github.com/moborots/winutil
+- **Preview branch:** https://github.com/moborots/winutil/tree/feature/windows-11-appearance
+- **Appearance guide:** [Windows 11 Appearance](https://github.com/moborots/winutil/blob/feature/windows-11-appearance/docs/src/content/docs/guides/windows-11-appearance.mdx)
+- **Report a bug / گزارش خطا:** [GitHub Issues](https://github.com/moborots/winutil/issues)
+
+Contributions, bug reports, and suggestions are welcome.  
+از پیشنهادها، گزارش خطا و مشارکت در توسعه پروژه استقبال می‌کنیم.
+
+---
+
+## Credits | سپاس‌گزاری
+
+Moborots WinUtil is based on the open-source work of [Chris Titus Tech WinUtil](https://github.com/ChrisTitusTech/winutil). Original project authors and contributors retain credit for their work. Moborots-specific changes are maintained in this repository.
+
+این پروژه بر پایه کار متن‌باز [Chris Titus Tech WinUtil](https://github.com/ChrisTitusTech/winutil) توسعه یافته است. اعتبار سازندگان و مشارکت‌کنندگان پروژه اصلی محفوظ است و تغییرات اختصاصی Moborots در این مخزن نگهداری می‌شود.
