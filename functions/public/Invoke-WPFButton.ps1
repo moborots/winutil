@@ -188,6 +188,9 @@ function Invoke-WPFButtonAction {
         "WPFClearAppxSelection" {
             $sync.configs.appxHashtable.Keys | ForEach-Object {$sync.$_.IsChecked = $false}
         }
+        "WPFAppearanceApplyButton" { Invoke-WPFAppearance -Action $Button }
+        "WPFAppearanceRestoreButton" { Invoke-WPFAppearance -Action $Button }
+        "WPFAppearanceBrowseButton" { Invoke-WPFAppearance -Action $Button }
         "WPFGetInstalledAppx" {
             $installedAppxPackages = Get-WinUtilInstalledAPPX
             Invoke-WPFUIThread -Parameters @{ Installed = $installedAppxPackages } -ScriptBlock {
