@@ -2486,19 +2486,6 @@
                             <TextBlock Text="Windows 11 Appearance" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
                             <TextBlock Text="Customize the appearance of your Windows 11 user account. WinUtil saves a backup of the original settings so you can restore them." Margin="0,6,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
                         </StackPanel>
-                        <Border Grid.Row="1" Style="{StaticResource BorderStyle}" Margin="5">
-                            <StackPanel Margin="12">
-                                <TextBlock Text="Personalization Shortcuts | میان‌برهای شخصی‌سازی" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
-                                <WrapPanel>
-                                    <Button Name="WPFSystemStartSettingsButton" Content="Start Menu | منوی استارت" Padding="14,7" Margin="3"/>
-                                    <Button Name="WPFSystemTaskbarSettingsButton" Content="Taskbar | نوار وظیفه" Padding="14,7" Margin="3"/>
-                                    <Button Name="WPFSystemCursorSettingsButton" Content="Mouse Cursor | نشانگر ماوس" Padding="14,7" Margin="3"/>
-                                    <Button Name="WPFSystemMousePropertiesButton" Content="Cursor Schemes | طرح نشانگر" Padding="14,7" Margin="3"/>
-                                </WrapPanel>
-                                <TextBlock Text="These buttons open the built-in Windows settings so you can change options supported by your Windows build." TextWrapping="Wrap" Margin="3,7,3,0" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
-                                <TextBlock Text="این دکمه‌ها تنظیمات داخلی ویندوز را باز می‌کنند تا گزینه‌های پشتیبانی‌شده در نسخه ویندوز خود را تغییر دهید." TextWrapping="Wrap" Margin="3,4,3,0" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
-                            </StackPanel>
-                        </Border>
                         <Border Grid.Row="2" Style="{StaticResource BorderStyle}" Margin="5">
                             <StackPanel Margin="12">
                                 <TextBlock Text="Theme and colors" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
@@ -2581,7 +2568,20 @@
                             <TextBlock Text="Read-only system information and safe file inventory. This page does not open or modify protected registry hive files." Margin="0,6,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
                             <TextBlock Text="نمایش اطلاعات ویندوز و فهرست فایل‌ها به‌صورت فقط‌خواندنی؛ محتوای فایل‌های حساس رجیستری باز یا تغییر داده نمی‌شود." Margin="0,4,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
                         </StackPanel>
-                        <Border Grid.Row="1" Style="{StaticResource BorderStyle}" Margin="5">
+                                                <Border Grid.Row="1" Style="{StaticResource BorderStyle}" Margin="5">
+                            <StackPanel Margin="12">
+                                <TextBlock Text="Personalization Shortcuts | میان‌برهای شخصی‌سازی" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
+                                <WrapPanel>
+                                    <Button Name="WPFSystemStartSettingsButton" Content="Start Menu | منوی استارت" Padding="14,7" Margin="3"/>
+                                    <Button Name="WPFSystemTaskbarSettingsButton" Content="Taskbar | نوار وظیفه" Padding="14,7" Margin="3"/>
+                                    <Button Name="WPFSystemCursorSettingsButton" Content="Mouse Cursor | نشانگر ماوس" Padding="14,7" Margin="3"/>
+                                    <Button Name="WPFSystemMousePropertiesButton" Content="Cursor Schemes | طرح نشانگر" Padding="14,7" Margin="3"/>
+                                </WrapPanel>
+                                <TextBlock Text="These buttons open the built-in Windows settings so you can change options supported by your Windows build." TextWrapping="Wrap" Margin="3,7,3,0" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
+                                <TextBlock Text="این دکمه‌ها تنظیمات داخلی ویندوز را باز می‌کنند تا گزینه‌های پشتیبانی‌شده در نسخه ویندوز خود را تغییر دهید." TextWrapping="Wrap" Margin="3,4,3,0" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
+                            </StackPanel>
+                        </Border>
+<Border Grid.Row="2" Style="{StaticResource BorderStyle}" Margin="5">
                             <StackPanel Margin="12">
                                 <TextBlock Text="Windows Edition | نسخه ویندوز" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
                                 <TextBlock Name="WPFSystemEditionInfo" Text="Loading Windows edition..." TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
@@ -2615,7 +2615,7 @@
                                 </DataGrid>
                             </Grid>
                         </Border>
-                        <Border Grid.Row="3" Style="{StaticResource BorderStyle}" Margin="5">
+                        <Border Grid.Row="4" Style="{StaticResource BorderStyle}" Margin="5">
                             <StackPanel Margin="12">
                                 <TextBlock Text="Safety note | نکته امنیتی" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
                                 <TextBlock Text="The config folder contains protected Windows registry hive files such as SAM, SYSTEM, SOFTWARE and SECURITY. Moborots only lists their metadata; it does not read, export, replace or delete them." TextWrapping="Wrap" Margin="0,5,0,0" Foreground="{DynamicResource MainForegroundColor}"/>
