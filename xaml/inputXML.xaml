@@ -2488,6 +2488,19 @@
                         </StackPanel>
                         <Border Grid.Row="1" Style="{StaticResource BorderStyle}" Margin="5">
                             <StackPanel Margin="12">
+                                <TextBlock Text="Personalization Shortcuts | میان‌برهای شخصی‌سازی" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
+                                <WrapPanel>
+                                    <Button Name="WPFSystemStartSettingsButton" Content="Start Menu | منوی استارت" Padding="14,7" Margin="3"/>
+                                    <Button Name="WPFSystemTaskbarSettingsButton" Content="Taskbar | نوار وظیفه" Padding="14,7" Margin="3"/>
+                                    <Button Name="WPFSystemCursorSettingsButton" Content="Mouse Cursor | نشانگر ماوس" Padding="14,7" Margin="3"/>
+                                    <Button Name="WPFSystemMousePropertiesButton" Content="Cursor Schemes | طرح نشانگر" Padding="14,7" Margin="3"/>
+                                </WrapPanel>
+                                <TextBlock Text="These buttons open the built-in Windows settings so you can change options supported by your Windows build." TextWrapping="Wrap" Margin="3,7,3,0" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
+                                <TextBlock Text="این دکمه‌ها تنظیمات داخلی ویندوز را باز می‌کنند تا گزینه‌های پشتیبانی‌شده در نسخه ویندوز خود را تغییر دهید." TextWrapping="Wrap" Margin="3,4,3,0" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="2" Style="{StaticResource BorderStyle}" Margin="5">
+                            <StackPanel Margin="12">
                                 <TextBlock Text="Theme and colors" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
                                 <Grid Margin="0,4">
                                     <Grid.ColumnDefinitions><ColumnDefinition Width="220"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
@@ -2530,7 +2543,7 @@
                                 <TextBlock Text="Note: Windows 11 may require signing out or restarting Explorer for taskbar alignment changes to appear." TextWrapping="Wrap" Margin="0,8,0,0" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
                             </StackPanel>
                         </Border>
-                        <Border Grid.Row="3" Style="{StaticResource BorderStyle}" Margin="5">
+                        <Border Grid.Row="4" Style="{StaticResource BorderStyle}" Margin="5">
                             <StackPanel Margin="12">
                                 <TextBlock Text="Desktop wallpaper" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
                                 <Grid>
@@ -2561,6 +2574,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0" Margin="8,8,8,14">
                             <TextBlock Text="System Tools | ابزارهای سیستم" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
@@ -2573,9 +2587,14 @@
                                 <TextBlock Name="WPFSystemEditionInfo" Text="Loading Windows edition..." TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
                                 <TextBlock Text="Edition changes require a supported Microsoft upgrade path and a valid license. This panel only detects your current edition." Margin="0,6,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
                                 <TextBlock Text="تغییر نسخه ویندوز فقط از مسیر رسمی مایکروسافت و با مجوز معتبر انجام می‌شود. این قسمت فعلاً فقط نسخه فعلی را شناسایی می‌کند." Margin="0,4,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
+                                <WrapPanel Margin="0,8,0,0">
+                                    <Button Name="WPFSystemEditionTargetsButton" Content="Check upgrade paths | بررسی مسیر ارتقا" Padding="14,7" Margin="3"/>
+                                    <Button Name="WPFSystemEditionActivationButton" Content="Activation Settings | فعال‌سازی ویندوز" Padding="14,7" Margin="3"/>
+                                </WrapPanel>
+                                <TextBlock Name="WPFSystemEditionTargetsInfo" Text="Upgrade targets have not been checked. / مسیرهای ارتقا هنوز بررسی نشده‌اند." TextWrapping="Wrap" Margin="3,6,3,0" Foreground="{DynamicResource MainForegroundColor}"/>
                             </StackPanel>
                         </Border>
-                        <Border Grid.Row="2" Style="{StaticResource BorderStyle}" Margin="5">
+                        <Border Grid.Row="3" Style="{StaticResource BorderStyle}" Margin="5">
                             <Grid Margin="12">
                                 <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
                                 <DockPanel Grid.Row="0" LastChildFill="False" Margin="0,0,0,8">
