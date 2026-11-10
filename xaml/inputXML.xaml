@@ -2494,6 +2494,7 @@
                                     <Grid.ColumnDefinitions><ColumnDefinition Width="220"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                     <TextBlock Text="Accent color" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}"/>
                                     <ComboBox Name="WPFAppearanceAccentCombo" Grid.Column="1" Width="220" HorizontalAlignment="Left">
+                                        <ComboBoxItem Content="Keep current" Tag="KeepCurrent"/>
                                         <ComboBoxItem Content="Windows blue" Tag="Blue"/>
                                         <ComboBoxItem Content="Purple" Tag="Purple"/>
                                         <ComboBoxItem Content="Pink" Tag="Pink"/>
