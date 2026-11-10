@@ -48,6 +48,9 @@ function Initialize-WinUtilTabContent {
             "Appearance" {
                 Initialize-WPFAppearance
             }
+            "System Tools" {
+                Initialize-WPFSystemTools
+            }
         }
         # Controls built just now start unchecked, so anything already chosen by an import or a
         # preset has to be applied to them once they exist
