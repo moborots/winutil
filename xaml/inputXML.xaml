@@ -1142,6 +1142,14 @@
                         </TextBlock>
                     </ToggleButton.Content>
                 </ToggleButton>
+                <ToggleButton Style="{StaticResource TabToggleButton}" Margin="0,0,5,0" Height="{DynamicResource TabButtonHeight}" Width="Auto" MinWidth="{DynamicResource TabButtonWidth}"
+                    Background="{DynamicResource ButtonConfigBackgroundColor}" Foreground="{DynamicResource ButtonConfigForegroundColor}" FontWeight="Bold" Name="WPFTab8BT">
+                    <ToggleButton.Content>
+                        <TextBlock FontSize="{DynamicResource TabButtonFontSize}" Background="Transparent" Foreground="{DynamicResource ButtonConfigForegroundColor}">
+                            <Underline>S</Underline>ystem Tools
+                        </TextBlock>
+                    </ToggleButton.Content>
+                </ToggleButton>
             </StackPanel>
 
             <!-- Search Bar and Action Buttons -->
@@ -2540,6 +2548,59 @@
                                     <Button Name="WPFAppearanceRestoreButton" Content="Restore previous appearance" Margin="3" Padding="18,7"/>
                                 </WrapPanel>
                                 <TextBlock Name="WPFAppearanceStatus" Text="Select your appearance options, then click Apply changes." TextWrapping="Wrap" Margin="4,8,4,2" Foreground="{DynamicResource MainForegroundColor}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="System Tools" Visibility="Collapsed" Name="WPFTab8">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="{DynamicResource TabContentMargin}">
+                    <Grid Background="Transparent" MaxWidth="1100" HorizontalAlignment="Center" Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Margin="8,8,8,14">
+                            <TextBlock Text="System Tools | ابزارهای سیستم" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
+                            <TextBlock Text="Read-only system information and safe file inventory. This page does not open or modify protected registry hive files." Margin="0,6,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                            <TextBlock Text="نمایش اطلاعات ویندوز و فهرست فایل‌ها به‌صورت فقط‌خواندنی؛ محتوای فایل‌های حساس رجیستری باز یا تغییر داده نمی‌شود." Margin="0,4,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                        </StackPanel>
+                        <Border Grid.Row="1" Style="{StaticResource BorderStyle}" Margin="5">
+                            <StackPanel Margin="12">
+                                <TextBlock Text="Windows Edition | نسخه ویندوز" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
+                                <TextBlock Name="WPFSystemEditionInfo" Text="Loading Windows edition..." TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                                <TextBlock Text="Edition changes require a supported Microsoft upgrade path and a valid license. This panel only detects your current edition." Margin="0,6,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
+                                <TextBlock Text="تغییر نسخه ویندوز فقط از مسیر رسمی مایکروسافت و با مجوز معتبر انجام می‌شود. این قسمت فعلاً فقط نسخه فعلی را شناسایی می‌کند." Margin="0,4,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="2" Style="{StaticResource BorderStyle}" Margin="5">
+                            <Grid Margin="12">
+                                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                                <DockPanel Grid.Row="0" LastChildFill="False" Margin="0,0,0,8">
+                                    <StackPanel DockPanel.Dock="Left">
+                                        <TextBlock Text="System32\\config File Viewer" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <TextBlock Text="فهرست فایل‌های پوشه C:\\Windows\\System32\\config" Margin="0,3,0,0" Foreground="{DynamicResource MainForegroundColor}"/>
+                                    </StackPanel>
+                                    <Button Name="WPFSystemConfigRefreshButton" Content="Refresh | تازه‌سازی" DockPanel.Dock="Right" Padding="14,6" Margin="8,0,0,0"/>
+                                </DockPanel>
+                                <TextBlock Grid.Row="1" Name="WPFSystemConfigStatus" Text="Click Refresh to list file names and metadata." TextWrapping="Wrap" Margin="0,0,0,8" Foreground="{DynamicResource MainForegroundColor}"/>
+                                <DataGrid Grid.Row="2" Name="WPFSystemConfigFiles" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="True" HeadersVisibility="Column" MinHeight="220" MaxHeight="420" Background="{DynamicResource SurfaceBackgroundColor}" Foreground="{DynamicResource MainForegroundColor}" BorderBrush="{DynamicResource BorderColor}" GridLinesVisibility="Horizontal">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name | نام فایل" Binding="{Binding Name}" Width="2*"/>
+                                        <DataGridTextColumn Header="Size (bytes) | حجم" Binding="{Binding Length}" Width="*"/>
+                                        <DataGridTextColumn Header="Last modified | آخرین تغییر" Binding="{Binding LastWriteTime}" Width="2*"/>
+                                        <DataGridTextColumn Header="Attributes | ویژگی‌ها" Binding="{Binding Attributes}" Width="2*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </Border>
+                        <Border Grid.Row="3" Style="{StaticResource BorderStyle}" Margin="5">
+                            <StackPanel Margin="12">
+                                <TextBlock Text="Safety note | نکته امنیتی" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
+                                <TextBlock Text="The config folder contains protected Windows registry hive files such as SAM, SYSTEM, SOFTWARE and SECURITY. Moborots only lists their metadata; it does not read, export, replace or delete them." TextWrapping="Wrap" Margin="0,5,0,0" Foreground="{DynamicResource MainForegroundColor}"/>
+                                <TextBlock Text="این پوشه شامل فایل‌های حساس رجیستری مانند SAM، SYSTEM، SOFTWARE و SECURITY است. برنامه فقط نام و مشخصات فایل‌ها را نمایش می‌دهد و محتوای آن‌ها را نمی‌خواند، کپی یا حذف نمی‌کند." TextWrapping="Wrap" Margin="0,4,0,0" Foreground="{DynamicResource MainForegroundColor}"/>
                             </StackPanel>
                         </Border>
                     </Grid>
