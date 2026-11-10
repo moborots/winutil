@@ -35,6 +35,28 @@ function Get-WPFSystemConfigFileInventory {
         }
 }
 
+
+function Get-WPFSystemEditionUpgradeTargets {
+    $dism = Join-Path $env:windir "System32\dism.exe"
+    if (-not (Test-Path -LiteralPath $dism)) {
+        throw "DISM.exe was not found."
+    }
+    $output = & $dism /Online /Get-TargetEditions 2>&1
+    $exitCode = $LASTEXITCODE
+    if ($exitCode -ne 0) {
+        throw "DISM could not query supported target editions. Exit code: $exitCode. $($output -join ' ')"
+    }
+    ($output | ForEach-Object { [string]$_ }) -join [Environment]::NewLine
+}
+
+function Open-WPFSystemSettings {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$SettingsUri
+    )
+    Start-Process -FilePath $SettingsUri -ErrorAction Stop
+}
+
 function Initialize-WPFSystemTools {
     try {
         $edition = Get-WPFSystemToolsWindowsEdition
@@ -43,6 +65,7 @@ function Initialize-WPFSystemTools {
             "Edition ID: $($edition.Edition)$newline" +
             "Display version: $($edition.DisplayVersion)$newline" +
             "OS build: $($edition.Build)"
+        $sync.WPFSystemEditionTargetsInfo.Text = "Select Check upgrade paths to query DISM. / برای بررسی مسیرهای ارتقا، گزینه بررسی مسیر ارتقا را انتخاب کنید."
     } catch {
         $sync.WPFSystemEditionInfo.Text = "Unable to read Windows edition information. / خواندن اطلاعات نسخه ویندوز ممکن نشد. $($_.Exception.Message)"
     }
@@ -56,8 +79,39 @@ function Invoke-WPFSystemTools {
         [string]$Action
     )
 
-    if ($Action -ne "WPFSystemConfigRefreshButton") {
-        return
+    switch ($Action) {
+        "WPFSystemStartSettingsButton" {
+            Open-WPFSystemSettings -SettingsUri "ms-settings:personalization-start"
+            return
+        }
+        "WPFSystemTaskbarSettingsButton" {
+            Open-WPFSystemSettings -SettingsUri "ms-settings:taskbar"
+            return
+        }
+        "WPFSystemCursorSettingsButton" {
+            Open-WPFSystemSettings -SettingsUri "ms-settings:accessibility-mouse-pointer"
+            return
+        }
+        "WPFSystemMousePropertiesButton" {
+            Start-Process -FilePath "control.exe" -ArgumentList "main.cpl" -ErrorAction Stop
+            return
+        }
+        "WPFSystemEditionActivationButton" {
+            Open-WPFSystemSettings -SettingsUri "ms-settings:activation"
+            return
+        }
+        "WPFSystemEditionTargetsButton" {
+            try {
+                $targets = Get-WPFSystemEditionUpgradeTargets
+                $newline = [Environment]::NewLine
+                $sync.WPFSystemEditionTargetsInfo.Text = "Supported target editions reported by DISM:$newline$targets"
+            } catch {
+                $sync.WPFSystemEditionTargetsInfo.Text = "Could not query upgrade targets. / بررسی مسیرهای ارتقا ممکن نشد. $($_.Exception.Message)"
+            }
+            return
+        }
+        "WPFSystemConfigRefreshButton" { }
+        default { return }
     }
 
     try {
