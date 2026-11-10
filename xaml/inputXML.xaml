@@ -2476,7 +2476,7 @@
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0" Margin="8,8,8,16">
                             <TextBlock Text="Windows 11 Appearance" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
-                            <TextBlock Text="Customize the appearance of your Windows 11 user account. Changes are saved with a restore point for these settings." Margin="0,6,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                            <TextBlock Text="Customize the appearance of your Windows 11 user account. WinUtil saves a backup of the original settings so you can restore them." Margin="0,6,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
                         </StackPanel>
                         <Border Grid.Row="1" Style="{StaticResource BorderStyle}" Margin="5">
                             <StackPanel Margin="12">
