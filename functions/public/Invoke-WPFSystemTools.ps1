@@ -65,9 +65,9 @@ function Initialize-WPFSystemTools {
             "Edition ID: $($edition.Edition)$newline" +
             "Display version: $($edition.DisplayVersion)$newline" +
             "OS build: $($edition.Build)"
-        $sync.WPFSystemEditionTargetsInfo.Text = "Select Check upgrade paths to query DISM. / برای بررسی مسیرهای ارتقا، گزینه بررسی مسیر ارتقا را انتخاب کنید."
+        $sync.WPFSystemEditionTargetsInfo.Text = "Select Check upgrade paths to query DISM."
     } catch {
-        $sync.WPFSystemEditionInfo.Text = "Unable to read Windows edition information. / خواندن اطلاعات نسخه ویندوز ممکن نشد. $($_.Exception.Message)"
+        $sync.WPFSystemEditionInfo.Text = "Unable to read Windows edition information. $($_.Exception.Message)"
     }
 
     Invoke-WPFSystemTools -Action "WPFSystemConfigRefreshButton"
@@ -106,7 +106,7 @@ function Invoke-WPFSystemTools {
                 $newline = [Environment]::NewLine
                 $sync.WPFSystemEditionTargetsInfo.Text = "Supported target editions reported by DISM:$newline$targets"
             } catch {
-                $sync.WPFSystemEditionTargetsInfo.Text = "Could not query upgrade targets. / بررسی مسیرهای ارتقا ممکن نشد. $($_.Exception.Message)"
+                $sync.WPFSystemEditionTargetsInfo.Text = "Could not query upgrade targets. $($_.Exception.Message)"
             }
             return
         }
@@ -118,10 +118,10 @@ function Invoke-WPFSystemTools {
         $files = @(Get-WPFSystemConfigFileInventory)
         $sync.WPFSystemConfigFiles.ItemsSource = $null
         $sync.WPFSystemConfigFiles.ItemsSource = $files
-        $sync.WPFSystemConfigStatus.Text = "Found $($files.Count) files. Metadata only; file contents were not accessed. / تعداد $($files.Count) فایل پیدا شد. فقط مشخصات فایل‌ها نمایش داده شده و محتوای آن‌ها خوانده نشده است."
+        $sync.WPFSystemConfigStatus.Text = "Found $($files.Count) files. Metadata only; file contents were not accessed."
     } catch {
         $sync.WPFSystemConfigFiles.ItemsSource = $null
-        $sync.WPFSystemConfigStatus.Text = "Could not list the folder. Run WinUtil as Administrator if access is denied. / نمایش پوشه ممکن نشد؛ در صورت رد شدن دسترسی، برنامه را با Administrator اجرا کنید. $($_.Exception.Message)"
+        $sync.WPFSystemConfigStatus.Text = "Could not list the folder. Run WinUtil as Administrator if access is denied. $($_.Exception.Message)"
         Write-WinUtilErrorRecord -ErrorRecord $_ -Component "SystemTools" -Context "List Windows config directory"
     }
 }
