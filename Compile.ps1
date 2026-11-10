@@ -8,7 +8,7 @@ $OFS = "`r`n"
 $sync = [Hashtable]::Synchronized(@{})
 $sync.configs = @{}
 
-$script = (Get-Content -Path scripts\start.ps1) -replace '#{replaceme}', (Get-Date -Format 'yy.MM.dd')
+$script = (Get-Content -Path scripts\start.ps1 -Encoding UTF8) -replace '#{replaceme}', (Get-Date -Format 'yy.MM.dd')
 $isLocalCompile = -not [string]::Equals($env:GITHUB_ACTIONS, "true", [StringComparison]::OrdinalIgnoreCase)
 $script = $script -replace '#{islocalcompile}', $isLocalCompile.ToString().ToLowerInvariant()
 
@@ -17,7 +17,7 @@ $script += Get-ChildItem -Path functions -Recurse -File | ForEach-Object {
 }
 
 Get-ChildItem config -File -Filter *.json | ForEach-Object {
-    $obj = Get-Content -Path $_.FullName -Raw | ConvertFrom-Json
+    $obj = Get-Content -Path $_.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
 
     if ($_.Name -eq "applications.json") {
         $fixed = [ordered]@{}
@@ -43,13 +43,13 @@ $iconsObject = [pscustomobject]$icons
 $sync.configs["icons"] = $iconsObject
 $script += "`$sync.configs.icons = @'`r`n$($iconsObject | ConvertTo-Json)`r`n'@ | ConvertFrom-Json"
 
-$xaml = Get-Content -Path xaml\inputXML.xaml -Raw
+$xaml = Get-Content -Path xaml\inputXML.xaml -Raw -Encoding UTF8
 $script += "`$inputXML = @'`r`n$xaml`r`n'@"
 
-$autounattendXml = Get-Content -Path tools\autounattend.xml -Raw
+$autounattendXml = Get-Content -Path tools\autounattend.xml -Raw -Encoding UTF8
 $script += "`$WinUtilAutounattendXml = @'`r`n$autounattendXml`r`n'@"
 
-$script += Get-Content -Path scripts\main.ps1 -Raw
+$script += Get-Content -Path scripts\main.ps1 -Raw -Encoding UTF8
 
 [System.IO.File]::WriteAllText((Join-Path $PSScriptRoot "winutil.ps1"), [string]$script, [System.Text.UTF8Encoding]::new($true))
 
