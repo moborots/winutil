@@ -105,13 +105,14 @@ git pull --ff-only origin feature/windows-11-appearance
 | **Windows Updates** | مدیریت تنظیمات به‌روزرسانی ویندوز |
 | **Windows 11 ISO** | ابزارهای مرتبط با دریافت و آماده‌سازی ISO ویندوز ۱۱ |
 | **Appearance (Preview)** | شخصی‌سازی ظاهر ویندوز ۱۱؛ شامل تم، رنگ تأکیدی، شفافیت و نوار وظیفه |
+| **System Tools (Preview)** | شناسایی نسخه ویندوز و نمایش نام، حجم، تاریخ تغییر و ویژگی فایل‌های `C:\\Windows\\System32\\config` بدون خواندن محتوای Hiveهای رجیستری |
 | **Backup & Restore (Appearance)** | تهیه نسخه پشتیبان و بازگردانی تنظیمات ظاهری پشتیبانی‌شده |
 | **Diagnostics Export** | خروجی گرفتن از گزارش تشخیصی سیستم برای عیب‌یابی |
 | **Import / Export** | وارد کردن و خروجی گرفتن از تنظیمات پشتیبانی‌شده |
 
-> **Note | توجه:** Appearance is currently available on the `feature/windows-11-appearance` preview branch. It is not included in `main` until the feature is reviewed and merged.
+> **Note | توجه:** Appearance and System Tools are currently available on the `feature/windows-11-appearance` preview branch. System Tools only lists file metadata in `C:\\Windows\\System32\\config`; it never reads or modifies registry hive contents. These features are not included in `main` until reviewed and merged.
 >
-> قابلیت Appearance فعلاً در شاخه آزمایشی `feature/windows-11-appearance` قرار دارد و تا زمان بررسی و ادغام، در شاخه `main` موجود نیست.
+> قابلیت‌های Appearance و System Tools فعلاً در شاخه آزمایشی `feature/windows-11-appearance` قرار دارند. بخش System Tools فقط مشخصات فایل‌ها را نشان می‌دهد و محتوای Hiveهای رجیستری را نمی‌خواند یا تغییر نمی‌دهد.
 
 ---
 
