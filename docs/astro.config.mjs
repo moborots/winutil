@@ -58,6 +58,7 @@ export default defineConfig({
 						{ label: 'Updates', slug: 'guides/updates' },
 						{ label: 'Automation', slug: 'guides/automation' },
 						{ label: 'Win11 Creator', slug: 'guides/win11creator' },
+						{ label: 'Windows 11 Appearance', slug: 'guides/windows-11-appearance' },
 					],
 				},
 				{
