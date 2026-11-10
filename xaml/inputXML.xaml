@@ -1134,6 +1134,14 @@
                         </TextBlock>
                     </ToggleButton.Content>
                 </ToggleButton>
+                <ToggleButton Style="{StaticResource TabToggleButton}" Margin="0,0,5,0" Height="{DynamicResource TabButtonHeight}" Width="Auto" MinWidth="{DynamicResource TabButtonWidth}"
+                    Background="{DynamicResource ButtonConfigBackgroundColor}" Foreground="{DynamicResource ButtonConfigForegroundColor}" FontWeight="Bold" Name="WPFTab7BT">
+                    <ToggleButton.Content>
+                        <TextBlock FontSize="{DynamicResource TabButtonFontSize}" Background="Transparent" Foreground="{DynamicResource ButtonConfigForegroundColor}">
+                            <Underline>A</Underline>ppearance
+                        </TextBlock>
+                    </ToggleButton.Content>
+                </ToggleButton>
             </StackPanel>
 
             <!-- Search Bar and Action Buttons -->
@@ -2455,6 +2463,86 @@
                         </WrapPanel>
                     </Border>
                 </Grid>
+            </TabItem>
+            <TabItem Header="Appearance" Visibility="Collapsed" Name="WPFTab7">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="{DynamicResource TabContentMargin}">
+                    <Grid Background="Transparent" MaxWidth="1050" HorizontalAlignment="Center" Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Margin="8,8,8,16">
+                            <TextBlock Text="Windows 11 Appearance" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
+                            <TextBlock Text="Customize the appearance of your Windows 11 user account. Changes are saved with a restore point for these settings." Margin="0,6,0,0" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                        </StackPanel>
+                        <Border Grid.Row="1" Style="{StaticResource BorderStyle}" Margin="5">
+                            <StackPanel Margin="12">
+                                <TextBlock Text="Theme and colors" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
+                                <Grid Margin="0,4">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="220"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Windows theme" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}"/>
+                                    <ComboBox Name="WPFAppearanceThemeCombo" Grid.Column="1" Width="220" HorizontalAlignment="Left">
+                                        <ComboBoxItem Content="Keep current (Auto)"/>
+                                        <ComboBoxItem Content="Dark"/>
+                                        <ComboBoxItem Content="Light"/>
+                                    </ComboBox>
+                                </Grid>
+                                <Grid Margin="0,4">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="220"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Accent color" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}"/>
+                                    <ComboBox Name="WPFAppearanceAccentCombo" Grid.Column="1" Width="220" HorizontalAlignment="Left">
+                                        <ComboBoxItem Content="Windows blue" Tag="Blue"/>
+                                        <ComboBoxItem Content="Purple" Tag="Purple"/>
+                                        <ComboBoxItem Content="Pink" Tag="Pink"/>
+                                        <ComboBoxItem Content="Red" Tag="Red"/>
+                                        <ComboBoxItem Content="Orange" Tag="Orange"/>
+                                        <ComboBoxItem Content="Green" Tag="Green"/>
+                                        <ComboBoxItem Content="Teal" Tag="Teal"/>
+                                    </ComboBox>
+                                </Grid>
+                                <CheckBox Name="WPFAppearanceTransparencyCheck" Content="Enable transparency effects" Margin="0,8,0,4" Foreground="{DynamicResource MainForegroundColor}"/>
+                                <CheckBox Name="WPFAppearanceAnimationsCheck" Content="Enable taskbar and window animations" Margin="0,4" Foreground="{DynamicResource MainForegroundColor}"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="2" Style="{StaticResource BorderStyle}" Margin="5">
+                            <StackPanel Margin="12">
+                                <TextBlock Text="Taskbar" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="220"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="Taskbar alignment" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}"/>
+                                    <ComboBox Name="WPFAppearanceTaskbarCombo" Grid.Column="1" Width="220" HorizontalAlignment="Left">
+                                        <ComboBoxItem Content="Left"/>
+                                        <ComboBoxItem Content="Center"/>
+                                    </ComboBox>
+                                </Grid>
+                                <TextBlock Text="Note: Windows 11 may require signing out or restarting Explorer for taskbar alignment changes to appear." TextWrapping="Wrap" Margin="0,8,0,0" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="3" Style="{StaticResource BorderStyle}" Margin="5">
+                            <StackPanel Margin="12">
+                                <TextBlock Text="Desktop wallpaper" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}" Margin="0,0,0,8"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                    <TextBox Name="WPFAppearanceWallpaperTextBox" Grid.Column="0" MinWidth="300" VerticalContentAlignment="Center" ToolTip="Path to a JPG, PNG, BMP or TIFF image"/>
+                                    <Button Name="WPFAppearanceBrowseButton" Grid.Column="1" Content="Browse..." Margin="8,0,0,0" Padding="16,5"/>
+                                </Grid>
+                                <TextBlock Text="Leave the path empty to keep the current wallpaper." Margin="0,6,0,0" Foreground="{DynamicResource MainForegroundColor}" Opacity="0.75"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="4" Style="{StaticResource BorderStyle}" Margin="5">
+                            <StackPanel Margin="12">
+                                <WrapPanel Orientation="Horizontal">
+                                    <Button Name="WPFAppearanceApplyButton" Content="Apply changes" Margin="3" Padding="18,7" FontWeight="Bold"/>
+                                    <Button Name="WPFAppearanceRestoreButton" Content="Restore previous appearance" Margin="3" Padding="18,7"/>
+                                </WrapPanel>
+                                <TextBlock Name="WPFAppearanceStatus" Text="Select your appearance options, then click Apply changes." TextWrapping="Wrap" Margin="4,8,4,2" Foreground="{DynamicResource MainForegroundColor}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
         </TabControl>
 
