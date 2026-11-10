@@ -191,6 +191,7 @@ function Invoke-WPFButtonAction {
         "WPFAppearanceApplyButton" { Invoke-WPFAppearance -Action $Button }
         "WPFAppearanceRestoreButton" { Invoke-WPFAppearance -Action $Button }
         "WPFAppearanceBrowseButton" { Invoke-WPFAppearance -Action $Button }
+        "WPFSystemConfigRefreshButton" { Invoke-WPFSystemTools -Action $Button }
         "WPFGetInstalledAppx" {
             $installedAppxPackages = Get-WinUtilInstalledAPPX
             Invoke-WPFUIThread -Parameters @{ Installed = $installedAppxPackages } -ScriptBlock {
