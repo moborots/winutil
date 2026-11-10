@@ -13,7 +13,7 @@ $isLocalCompile = -not [string]::Equals($env:GITHUB_ACTIONS, "true", [StringComp
 $script = $script -replace '#{islocalcompile}', $isLocalCompile.ToString().ToLowerInvariant()
 
 $script += Get-ChildItem -Path functions -Recurse -File | ForEach-Object {
-    Get-Content -Path $_.FullName -Raw
+    Get-Content -Path $_.FullName -Raw -Encoding UTF8
 }
 
 Get-ChildItem config -File -Filter *.json | ForEach-Object {
@@ -51,7 +51,7 @@ $script += "`$WinUtilAutounattendXml = @'`r`n$autounattendXml`r`n'@"
 
 $script += Get-Content -Path scripts\main.ps1 -Raw
 
-Set-Content -Path winutil.ps1 -Value $script
+[System.IO.File]::WriteAllText((Join-Path $PSScriptRoot "winutil.ps1"), [string]$script, [System.Text.UTF8Encoding]::new($true))
 
 if ($Run) {
     .\Winutil.ps1
