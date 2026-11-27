@@ -13,11 +13,11 @@ $isLocalCompile = -not [string]::Equals($env:GITHUB_ACTIONS, "true", [StringComp
 $script = $script -replace '#{islocalcompile}', $isLocalCompile.ToString().ToLowerInvariant()
 
 $script += Get-ChildItem -Path functions -Recurse -File | ForEach-Object {
-    Get-Content -Path $_.FullName -Raw
+    Get-Content -Path $_.FullName -Raw -Encoding UTF8
 }
 
 Get-ChildItem config -File -Filter *.json | ForEach-Object {
-    $obj = Get-Content -Path $_.FullName -Raw | ConvertFrom-Json
+    $obj = Get-Content -Path $_.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
 
     if ($_.Name -eq "applications.json") {
         $fixed = [ordered]@{}
