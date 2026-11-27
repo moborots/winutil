@@ -189,6 +189,15 @@ function Get-WinUtilLocalizedText {
             "Browsers & Internet" = "مرورگرها و اینترنت"
             "Utilities & Productivity" = "ابزارهای کاربردی و بهره‌وری"
             "Xbox & Gaming" = "Xbox و بازی"
+            "Mount & Verify ISO" = "اتصال و بررسی ISO"
+            "Erase & Write to USB" = "پاک‌کردن و نوشتن روی USB"
+            "Windows repair tools will inspect or repair system files. This can take several minutes. Continue?" = "ابزارهای تعمیر ویندوز فایل‌های سیستمی را بررسی یا تعمیر می‌کنند. این کار ممکن است چند دقیقه طول بکشد. ادامه می‌دهید؟"
+            "Apply '$optimizationState' to '$optimizationSetting'? A JSON backup will be saved before registry values are changed." = "تنظیم «$optimizationSetting» روی حالت «$optimizationState» اعمال شود؟ پیش از تغییر رجیستری، نسخه پشتیبان JSON ذخیره می‌شود."
+            "Restore Windows experience registry values from the selected backup file?" = "مقادیر رجیستری تنظیمات تجربه ویندوز از فایل پشتیبان انتخاب‌شده بازیابی شوند؟"
+            "Clear the local DNS resolver cache?" = "حافظه موقت محلی DNS پاک شود؟"
+            "Reset the Winsock catalog? Some network applications may need restarting." = "فهرست Winsock بازنشانی شود؟ ممکن است لازم باشد برخی برنامه‌های شبکه را دوباره اجرا کنید."
+            "Reset TCP/IP settings? A restart may be required and custom network settings may be affected." = "تنظیمات TCP/IP بازنشانی شوند؟ ممکن است راه‌اندازی مجدد لازم باشد و تنظیمات سفارشی شبکه تحت تأثیر قرار بگیرند."
+            "MOBOROTS Optimization - Confirm" = "بهینه‌سازی MOBOROTS - تأیید"
             "Bing & Web Services" = "Bing و سرویس‌های وب"
         }
     }
