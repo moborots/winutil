@@ -270,6 +270,7 @@ function Invoke-WPFButtonAction {
             if ($dialog.ShowDialog($sync.Form)) {
                 $sync.WPFOptBackupPath.Text = $dialog.FileName
             }
+            break
         }
         "WPFOpt*" {
             Invoke-WinUtilOptimizationAction -Button $Button -Setting $OptimizationSetting -State $OptimizationState -BackupPath $OptimizationBackupPath -PreviewOnly:$OptimizationPreviewOnly
