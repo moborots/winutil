@@ -56,7 +56,8 @@ Optimization tab also has an Alt+O navigation shortcut.
 - No operation runs automatically when WinUtil starts.
 - Startup, resource and network diagnostics are read-only.
 - System repair and network reset actions require explicit UI confirmation and elevation.
-- Experience changes save the exact previous registry values before applying them.
+- Experience changes save the exact previous registry values before applying them. Each apply creates a fresh restore point; an existing backup file is never overwritten.
+- Restore accepts only the registry paths and value names emitted by this feature's backup format.
 - The Preview only checkbox invokes PowerShell WhatIf and does not write registry values or a backup.
 - No Windows Defender, Windows Update, Firewall, VBS, Memory Integrity, SysMain, Search or Pagefile settings are disabled.
 - No startup entry is automatically disabled or removed.
