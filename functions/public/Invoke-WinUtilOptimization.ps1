@@ -201,10 +201,13 @@ function Set-WinUtilExperience {
     }
     if ([string]::IsNullOrWhiteSpace($BackupPath)) {
         $folder = Join-Path $env:LOCALAPPDATA "winutil\backups"
-        $BackupPath = Join-Path $folder ("experience-{0}.json" -f (Get-Date -Format "yyyyMMdd-HHmmss"))
+        $BackupPath = Join-Path $folder ("experience-{0}.json" -f (Get-Date -Format "yyyyMMdd-HHmmss-fff"))
     }
 
     if ($PSCmdlet.ShouldProcess($Setting, "Set Windows experience preference to $State; backup: $BackupPath")) {
+        if (Test-Path -LiteralPath $BackupPath) {
+            throw "Backup file already exists. Choose a different backup path to avoid overwriting an earlier restore point."
+        }
         $folder = Split-Path -Parent $BackupPath
         if ($folder -and -not (Test-Path $folder)) { New-Item -Path $folder -ItemType Directory -Force | Out-Null }
         [pscustomobject]@{ Setting = $Setting; StateBeforeChange = $changes; CreatedAt = Get-Date } |
@@ -227,8 +230,27 @@ function Restore-WinUtilExperienceBackup {
         [ValidateScript({ Test-Path -LiteralPath $_ -PathType Leaf })]
         [string]$Path
     )
-    $backup = Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
-    foreach ($item in $backup.StateBeforeChange) {
+    $backup = Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json -ErrorAction Stop
+    $allowedValues = @(
+        "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced|LaunchTo",
+        "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer|ShowRecent",
+        "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer|ShowFrequent",
+        "HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo|Enabled",
+        "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager|SubscribedContent-338393Enabled",
+        "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager|SubscribedContent-353694Enabled",
+        "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager|SubscribedContent-353696Enabled"
+    )
+    $backupItems = @($backup.StateBeforeChange)
+    if ($backup.Setting -notin @("ExplorerThisPC", "ExplorerRecent", "AdvertisingId", "ConsumerSuggestions") -or $backupItems.Count -eq 0) {
+        throw "The selected file is not a valid MOBOROTS Windows experience backup."
+    }
+    foreach ($item in $backupItems) {
+        $key = "$($item.Path)|$($item.Name)"
+        if ($key -notin $allowedValues -or $item.Type -ne "DWord" -or $null -eq $item.Existed) {
+            throw "The backup contains an unsupported registry value. No values were restored."
+        }
+    }
+    foreach ($item in $backupItems) {
         if ($PSCmdlet.ShouldProcess("$($item.Path)\$($item.Name)", "Restore previous registry value")) {
             if ($item.Existed) {
                 if (-not (Test-Path -LiteralPath $item.Path)) { New-Item -Path $item.Path -Force | Out-Null }
