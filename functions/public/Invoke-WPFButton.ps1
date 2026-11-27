@@ -58,7 +58,8 @@ function Invoke-WPFButton {
         if ($Button -eq "WPFOptExperienceApply") {
             $optimizationSetting = [string]$sync.WPFOptExperienceSetting.SelectedItem.Tag
             $optimizationState = [string]$sync.WPFOptExperienceState.SelectedItem.Tag
-            $optimizationBackupPath = [string]$sync.WPFOptBackupPath.Text
+            # Apply always creates a fresh timestamped restore point. The path field is reserved for browsing/restoring a prior backup.
+            $optimizationBackupPath = $null
             $optimizationPreviewOnly = [bool]$sync.OptimizationPreviewOnly.IsChecked
         } elseif ($Button -eq "WPFOptExperienceRestore") {
             $optimizationBackupPath = [string]$sync.WPFOptBackupPath.Text
