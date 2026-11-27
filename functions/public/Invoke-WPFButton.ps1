@@ -59,7 +59,7 @@ function Invoke-WPFButton {
             $optimizationSetting = [string]$sync.WPFOptExperienceSetting.SelectedItem.Tag
             $optimizationState = [string]$sync.WPFOptExperienceState.SelectedItem.Tag
             $optimizationBackupPath = [string]$sync.WPFOptBackupPath.Text
-            $optimizationPreviewOnly = [bool]$sync.WPFOptPreviewOnly.IsChecked
+            $optimizationPreviewOnly = [bool]$sync.OptimizationPreviewOnly.IsChecked
         } elseif ($Button -eq "WPFOptExperienceRestore") {
             $optimizationBackupPath = [string]$sync.WPFOptBackupPath.Text
         }
