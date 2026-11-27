@@ -17,15 +17,25 @@ A curated compilation of Windows system tasks to streamline **installs**, debloa
 
 Open PowerShell or Terminal as admin, then run:
 
-**Stable Branch (recommended)**
-```ps1
-irm https://christitus.com/win | iex
+**MOBOROTS Main Branch (recommended)**
+
+Run this in an elevated PowerShell or Windows Terminal:
+
+```powershell
+irm https://raw.githubusercontent.com/moborots/winutil/main/scripts/bootstrap.ps1 | iex
 ```
 
-**Development Branch**
-```ps1
-irm https://christitus.com/windev | iex
+This downloads the `main` branch of **moborots/winutil**, builds the project with its included `Compile.ps1`, and launches that build. It does not download the ChrisTitusTech launcher.
+
+To apply a preset:
+
+```powershell
+& ([ScriptBlock]::Create((irm https://raw.githubusercontent.com/moborots/winutil/main/scripts/bootstrap.ps1))) -Preset Standard
 ```
+
+Available presets: `Standard`, `Minimal`, and `Advanced`.
+
+The downloaded source and generated build are kept in a temporary folder under `%TEMP%\MOBOROTS-WinUtil-*`.
 
 ### How to open an admin terminal
 
@@ -39,7 +49,7 @@ irm https://christitus.com/windev | iex
 Apply a predefined configuration without manual selection:
 
 ```powershell
-& ([ScriptBlock]::Create((irm https://christitus.com/win))) -Preset Standard
+& ([ScriptBlock]::Create((irm https://raw.githubusercontent.com/moborots/winutil/main/scripts/bootstrap.ps1))) -Preset Standard
 ```
 
 | Preset | Description |
@@ -49,13 +59,13 @@ Apply a predefined configuration without manual selection:
 | `Advanced` | Deep tweaks for power users |
 
 To view exactly what each preset does, see:
-https://github.com/ChrisTitusTech/winutil/blob/main/config/preset.json
+https://github.com/moborots/winutil/blob/main/config/preset.json
 
 ---
 
 ## Build & Develop
 
-See https://github.com/ChrisTitusTech/winutil/blob/main/.github/CONTRIBUTING.md
+See https://github.com/moborots/winutil/blob/main/.github/CONTRIBUTING.md
 
 ---
 
