@@ -1134,6 +1134,14 @@
                         </TextBlock>
                     </ToggleButton.Content>
                 </ToggleButton>
+                <ToggleButton Style="{StaticResource TabToggleButton}" Margin="0,0,5,0" Height="{DynamicResource TabButtonHeight}" Width="Auto" MinWidth="{DynamicResource TabButtonWidth}"
+                    Background="{DynamicResource ButtonTweaksBackgroundColor}" Foreground="{DynamicResource ButtonTweaksForegroundColor}" FontWeight="Bold" Name="WPFTab7BT">
+                    <ToggleButton.Content>
+                        <TextBlock FontSize="{DynamicResource TabButtonFontSize}" Background="Transparent" Foreground="{DynamicResource ButtonTweaksForegroundColor}">
+                            <Underline>O</Underline>ptimization
+                        </TextBlock>
+                    </ToggleButton.Content>
+                </ToggleButton>
             </StackPanel>
 
             <!-- Search Bar and Action Buttons -->
@@ -2455,6 +2463,134 @@
                         </WrapPanel>
                     </Border>
                 </Grid>
+            </TabItem>
+            <TabItem Header="Optimization" Visibility="Collapsed" Name="WPFTab7">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="{DynamicResource TabContentMargin}">
+                    <Grid MaxWidth="1350" HorizontalAlignment="Center">
+                        <StackPanel>
+                            <StackPanel Margin="10,10,10,14">
+                                <TextBlock Text="Windows Optimization Center"
+                                           FontSize="24" FontWeight="Bold"
+                                           Foreground="{DynamicResource MainForegroundColor}"/>
+                                <TextBlock Text="Read-only diagnostics are separated from repair and settings changes. Every system-changing action requires confirmation."
+                                           Margin="0,6,0,0" FontSize="13" TextWrapping="Wrap"
+                                           Foreground="{DynamicResource MainForegroundColor}"/>
+                            </StackPanel>
+
+                            <UniformGrid Columns="3" Margin="0,0,0,8">
+                                <Border Style="{StaticResource BorderStyle}" Padding="14" Margin="5">
+                                    <StackPanel>
+                                        <TextBlock Text="Startup Manager" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <TextBlock Text="Inspect Run/RunOnce registry entries and Startup folders. This report does not disable entries."
+                                                   Margin="0,6,0,12" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <Button Name="WPFOptStartupRefresh" Content="Refresh startup list" Margin="2"
+                                                Width="{DynamicResource ButtonWidth}" Height="{DynamicResource ButtonHeight}"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Style="{StaticResource BorderStyle}" Padding="14" Margin="5">
+                                    <StackPanel>
+                                        <TextBlock Text="Resource Snapshot" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <TextBlock Text="Read current CPU load, RAM use, local disk capacity and the top memory-consuming processes."
+                                                   Margin="0,6,0,12" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <Button Name="WPFOptResourcesRefresh" Content="Collect system snapshot" Margin="2"
+                                                Width="{DynamicResource ButtonWidth}" Height="{DynamicResource ButtonHeight}"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Style="{StaticResource BorderStyle}" Padding="14" Margin="5">
+                                    <StackPanel>
+                                        <TextBlock Text="Network Diagnostics" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <TextBlock Text="Inspect adapters, IP configuration, DNS resolution and basic connectivity checks."
+                                                   Margin="0,6,0,12" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <Button Name="WPFOptNetworkRefresh" Content="Run network checks" Margin="2"
+                                                Width="{DynamicResource ButtonWidth}" Height="{DynamicResource ButtonHeight}"/>
+                                    </StackPanel>
+                                </Border>
+                            </UniformGrid>
+
+                            <UniformGrid Columns="2" Margin="0,0,0,8">
+                                <Border Style="{StaticResource BorderStyle}" Padding="14" Margin="5">
+                                    <StackPanel>
+                                        <TextBlock Text="Windows Repair" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <TextBlock Text="DISM and SFC can take several minutes. Run only the repair you intend to use."
+                                                   Margin="0,6,0,10" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <WrapPanel>
+                                            <Button Name="WPFOptRepairDISMCheckHealth" Content="DISM CheckHealth" Margin="3" Padding="8"/>
+                                            <Button Name="WPFOptRepairDISMScanHealth" Content="DISM ScanHealth" Margin="3" Padding="8"/>
+                                            <Button Name="WPFOptRepairDISMRestoreHealth" Content="DISM RestoreHealth" Margin="3" Padding="8"/>
+                                            <Button Name="WPFOptRepairSFCScan" Content="SFC /scannow" Margin="3" Padding="8"/>
+                                        </WrapPanel>
+                                        <TextBlock Text="Requires Administrator privileges. RestoreHealth and SFC may modify Windows system files."
+                                                   FontSize="11" FontStyle="Italic" TextWrapping="Wrap" Margin="3,8,3,0"
+                                                   Foreground="{DynamicResource MainForegroundColor}"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Style="{StaticResource BorderStyle}" Padding="14" Margin="5">
+                                    <StackPanel>
+                                        <TextBlock Text="Windows Experience" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <TextBlock Text="Adjust a small set of Explorer and recommendation preferences. A JSON backup is saved before applying changes."
+                                                   Margin="0,6,0,10" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <TextBlock Text="Setting" Margin="2,2,2,0" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <ComboBox Name="WPFOptExperienceSetting" SelectedIndex="0" Margin="2" MinWidth="220">
+                                            <ComboBoxItem Tag="ExplorerRecent" Content="Explorer: Recent and frequent items"/>
+                                            <ComboBoxItem Tag="ExplorerThisPC" Content="Explorer: Open This PC"/>
+                                            <ComboBoxItem Tag="AdvertisingId" Content="Privacy: Advertising ID"/>
+                                            <ComboBoxItem Tag="ConsumerSuggestions" Content="Start: Consumer suggestions"/>
+                                        </ComboBox>
+                                        <TextBlock Text="State" Margin="2,5,2,0" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <ComboBox Name="WPFOptExperienceState" SelectedIndex="0" Margin="2" MinWidth="150">
+                                            <ComboBoxItem Tag="Disable" Content="Disable / turn off"/>
+                                            <ComboBoxItem Tag="Enable" Content="Enable / turn on"/>
+                                        </ComboBox>
+                                        <CheckBox Name="WPFOptPreviewOnly" Content="Preview only (do not change registry)" Margin="4,8,4,4"/>
+                                        <TextBlock Text="Backup file (filled automatically after applying)" Margin="2,5,2,0" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <TextBox Name="WPFOptBackupPath" Margin="2" MinWidth="220"
+                                                 Background="{DynamicResource MainBackgroundColor}" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <WrapPanel Margin="0,6,0,0">
+                                            <Button Name="WPFOptExperienceApply" Content="Apply setting" Margin="3" Padding="8"/>
+                                            <Button Name="WPFOptBrowseBackup" Content="Browse backup..." Margin="3" Padding="8"/>
+                                            <Button Name="WPFOptExperienceRestore" Content="Restore backup" Margin="3" Padding="8"/>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </Border>
+                            </UniformGrid>
+
+                            <Border Style="{StaticResource BorderStyle}" Padding="14" Margin="5">
+                                <StackPanel>
+                                    <TextBlock Text="Network Repair" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
+                                    <TextBlock Text="These actions change local network state. Winsock and TCP/IP resets may require a restart and can affect custom network settings."
+                                               Margin="0,6,0,10" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                                    <WrapPanel>
+                                        <Button Name="WPFOptNetworkFlushDNS" Content="Flush DNS cache" Margin="3" Padding="8"/>
+                                        <Button Name="WPFOptNetworkResetWinsock" Content="Reset Winsock" Margin="3" Padding="8"/>
+                                        <Button Name="WPFOptNetworkResetTCPIP" Content="Reset TCP/IP" Margin="3" Padding="8"/>
+                                    </WrapPanel>
+                                    <TextBlock Text="Requires Administrator privileges. No network adapter or DNS server settings are changed by these reset commands."
+                                               FontSize="11" FontStyle="Italic" TextWrapping="Wrap" Margin="3,8,3,0"
+                                               Foreground="{DynamicResource MainForegroundColor}"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource BorderStyle}" Padding="14" Margin="5,5,5,12">
+                                <StackPanel>
+                                    <TextBlock Text="Operation Status" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource MainForegroundColor}"/>
+                                    <TextBlock Name="WPFOptStatus" Text="Ready. Choose a diagnostic or maintenance action."
+                                               Margin="0,6,0,8" TextWrapping="Wrap" Foreground="{DynamicResource MainForegroundColor}"/>
+                                    <ProgressBar Name="WPFOptProgress" Height="8" Minimum="0" Maximum="100" Value="0"
+                                                 Visibility="Collapsed" Style="{StaticResource RoundedProgressBarStyle}"/>
+                                    <TextBlock Text="Report / result" FontWeight="SemiBold" Margin="0,12,0,5"
+                                               Foreground="{DynamicResource MainForegroundColor}"/>
+                                    <TextBox Name="WPFOptOutput" Height="240" IsReadOnly="True" AcceptsReturn="True"
+                                             TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto"
+                                             HorizontalScrollBarVisibility="Auto" FontFamily="Consolas" FontSize="12"
+                                             Background="{DynamicResource MainBackgroundColor}"
+                                             Foreground="{DynamicResource MainForegroundColor}"
+                                             BorderBrush="{DynamicResource BorderColor}"
+                                             Text="Reports and operation results will appear here."/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
         </TabControl>
 
