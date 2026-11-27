@@ -2541,7 +2541,7 @@
                                             <ComboBoxItem Tag="Disable" Content="Disable / turn off"/>
                                             <ComboBoxItem Tag="Enable" Content="Enable / turn on"/>
                                         </ComboBox>
-                                        <CheckBox Name="WPFOptPreviewOnly" Content="Preview only (do not change registry)" Margin="4,8,4,4"/>
+                                        <CheckBox Name="OptimizationPreviewOnly" Content="Preview only (do not change registry)" Margin="4,8,4,4"/>
                                         <TextBlock Text="Backup file (filled automatically after applying)" Margin="2,5,2,0" Foreground="{DynamicResource MainForegroundColor}"/>
                                         <TextBox Name="WPFOptBackupPath" Margin="2" MinWidth="220"
                                                  Background="{DynamicResource MainBackgroundColor}" Foreground="{DynamicResource MainForegroundColor}"/>
