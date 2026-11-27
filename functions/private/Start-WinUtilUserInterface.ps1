@@ -96,6 +96,9 @@ function Start-WinUtilUserInterface {
         $xaml.SelectNodes("//*[@Name]") | ForEach-Object {$sync["$("$($psitem.Name)")"] = $sync["Form"].FindName($psitem.Name)}
     }
 
+    # Apply the default Persian language pack and right-to-left layout.
+    Initialize-WinUtilLocalization
+
     $sync.WindowInsetsPending = $false
     $sync.WindowInsetsUpdate = [action]{
         $sync.WindowInsetsPending = $false
