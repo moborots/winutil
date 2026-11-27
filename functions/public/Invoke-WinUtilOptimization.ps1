@@ -185,12 +185,6 @@ function Set-WinUtilExperience {
             @{ Path = "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"; Name = "SubscribedContent-353696Enabled"; EnableValue = 1; DisableValue = 0 }
         )
     }
-    if ([string]::IsNullOrWhiteSpace($BackupPath)) {
-        $folder = Join-Path $env:LOCALAPPDATA "winutil\backups"
-        if (-not (Test-Path $folder)) { New-Item -Path $folder -ItemType Directory -Force | Out-Null }
-        $BackupPath = Join-Path $folder ("experience-{0}.json" -f (Get-Date -Format "yyyyMMdd-HHmmss"))
-    }
-
     $changes = @()
     foreach ($entry in $definitions[$Setting]) {
         $exists = $false; $oldValue = $null
@@ -205,10 +199,16 @@ function Set-WinUtilExperience {
             OldValue = $oldValue; NewValue = $newValue; Type = "DWord"
         }
     }
-    [pscustomobject]@{ Setting = $Setting; StateBeforeChange = $changes; CreatedAt = Get-Date } |
-        ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $BackupPath -Encoding UTF8
+    if ([string]::IsNullOrWhiteSpace($BackupPath)) {
+        $folder = Join-Path $env:LOCALAPPDATA "winutil\backups"
+        $BackupPath = Join-Path $folder ("experience-{0}.json" -f (Get-Date -Format "yyyyMMdd-HHmmss"))
+    }
 
     if ($PSCmdlet.ShouldProcess($Setting, "Set Windows experience preference to $State; backup: $BackupPath")) {
+        $folder = Split-Path -Parent $BackupPath
+        if ($folder -and -not (Test-Path $folder)) { New-Item -Path $folder -ItemType Directory -Force | Out-Null }
+        [pscustomobject]@{ Setting = $Setting; StateBeforeChange = $changes; CreatedAt = Get-Date } |
+            ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $BackupPath -Encoding UTF8
         foreach ($change in $changes) {
             if (-not (Test-Path -LiteralPath $change.Path)) { New-Item -Path $change.Path -Force | Out-Null }
             New-ItemProperty -LiteralPath $change.Path -Name $change.Name -Value $change.NewValue -PropertyType DWord -Force | Out-Null
@@ -255,7 +255,8 @@ function Invoke-WinUtilNetworkRepair {
         "ResetTCPIP" { @{ File = (Join-Path $env:SystemRoot "System32\netsh.exe"); Args = @("int", "ip", "reset"); Reboot = $true } }
     }
     if ($PSCmdlet.ShouldProcess($env:COMPUTERNAME, $Operation)) {
-        & $command.File @($command.Args)
+        $arguments = $command.Args
+        & $command.File @arguments
         $exitCode = $LASTEXITCODE
         [pscustomobject]@{
             Operation = $Operation; ExitCode = $exitCode; Success = ($exitCode -eq 0)
