@@ -51,7 +51,7 @@ $script += "`$WinUtilAutounattendXml = @'`r`n$autounattendXml`r`n'@"
 
 $script += Get-Content -Path scripts\main.ps1 -Raw -Encoding UTF8
 
-Set-Content -Path winutil.ps1 -Value $script
+Set-Content -Path winutil.ps1 -Value $script -Encoding UTF8
 
 if ($Run) {
     .\Winutil.ps1
