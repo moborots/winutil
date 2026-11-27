@@ -34,7 +34,12 @@ function Invoke-WPFButton {
     $workButtons = @(
         "WPFInstallUpgrade", "WPFAddUltPerf", "WPFRemoveUltPerf",
         "WPFUpdatesdefault", "WPFUpdatesdisable", "WPFUpdatessecurity",
-        "WPFGetInstalledAppx"
+        "WPFGetInstalledAppx",
+        "WPFOptStartupRefresh", "WPFOptResourcesRefresh", "WPFOptNetworkRefresh",
+        "WPFOptRepairDISMCheckHealth", "WPFOptRepairDISMScanHealth",
+        "WPFOptRepairDISMRestoreHealth", "WPFOptRepairSFCScan",
+        "WPFOptExperienceApply", "WPFOptExperienceRestore",
+        "WPFOptNetworkFlushDNS", "WPFOptNetworkResetWinsock", "WPFOptNetworkResetTCPIP"
     )
 
     $featureEntry = $sync.configs.feature.$Button
@@ -42,6 +47,57 @@ function Invoke-WPFButton {
     # starts a job. Wrapping it here would turn its "nothing selected" return into job success.
     $isConfigWork = $featureEntry -and $Button -ne "WPFFeatureInstall" -and
         ($Button -notlike "WPFPanel*" -or $featureEntry.function)
+
+    # Optimization actions that alter Windows require a clear, foreground confirmation.
+    # Preview-only experience changes deliberately skip confirmation because they write nothing.
+    $optimizationSetting = $null
+    $optimizationState = $null
+    $optimizationBackupPath = $null
+    $optimizationPreviewOnly = $false
+    if ($Button -like "WPFOpt*") {
+        if ($Button -eq "WPFOptExperienceApply") {
+            $optimizationSetting = [string]$sync.WPFOptExperienceSetting.SelectedItem.Tag
+            $optimizationState = [string]$sync.WPFOptExperienceState.SelectedItem.Tag
+            # Apply always creates a fresh timestamped restore point. The path field is reserved for browsing/restoring a prior backup.
+            $optimizationBackupPath = $null
+            $optimizationPreviewOnly = [bool]$sync.OptimizationPreviewOnly.IsChecked
+        } elseif ($Button -eq "WPFOptExperienceRestore") {
+            $optimizationBackupPath = [string]$sync.WPFOptBackupPath.Text
+        }
+
+        $confirmationText = switch ($Button) {
+            { $_ -in "WPFOptRepairDISMRestoreHealth", "WPFOptRepairDISMCheckHealth", "WPFOptRepairDISMScanHealth", "WPFOptRepairSFCScan" } {
+                "Windows repair tools will inspect or repair system files. This can take several minutes. Continue?"
+            }
+            "WPFOptExperienceApply" {
+                if (-not $optimizationPreviewOnly) {
+                    "Apply '$optimizationState' to '$optimizationSetting'? A JSON backup will be saved before registry values are changed."
+                }
+            }
+            "WPFOptExperienceRestore" {
+                "Restore Windows experience registry values from the selected backup file?"
+            }
+            "WPFOptNetworkFlushDNS" {
+                "Clear the local DNS resolver cache?"
+            }
+            "WPFOptNetworkResetWinsock" {
+                "Reset the Winsock catalog? Some network applications may need restarting."
+            }
+            "WPFOptNetworkResetTCPIP" {
+                "Reset TCP/IP settings? A restart may be required and custom network settings may be affected."
+            }
+        }
+        if (-not [string]::IsNullOrWhiteSpace($confirmationText)) {
+            $answer = [Windows.MessageBox]::Show(
+                $sync.Form,
+                $confirmationText,
+                "MOBOROTS Optimization - Confirm",
+                [Windows.MessageBoxButton]::YesNo,
+                [Windows.MessageBoxImage]::Warning
+            )
+            if ($answer -ne [Windows.MessageBoxResult]::Yes) { return }
+        }
+    }
 
     if ($isConfigWork -or $workButtons -contains $Button) {
         $updatesDisableConfirmed = $false
@@ -55,14 +111,18 @@ function Invoke-WPFButton {
         $jobParameters = @{
             Button = $Button
             UpdatesDisableConfirmed = $updatesDisableConfirmed
+            OptimizationSetting = $optimizationSetting
+            OptimizationState = $optimizationState
+            OptimizationBackupPath = $optimizationBackupPath
+            OptimizationPreviewOnly = $optimizationPreviewOnly
         }
         if ($Button -eq "WPFInstallUpgrade") {
             $jobParameters.ManagerPreference = $sync.preferences.packagemanager
         }
         Start-WinUtilJob -Name (Get-WinUtilButtonLabel -Button $Button) -QueueIfBusy -Parameters $jobParameters -ScriptBlock {
-            param($Button, $UpdatesDisableConfirmed, $ManagerPreference)
+            param($Button, $UpdatesDisableConfirmed, $ManagerPreference, $OptimizationSetting, $OptimizationState, $OptimizationBackupPath, $OptimizationPreviewOnly)
 
-            Invoke-WPFButtonAction -Button $Button -UpdatesDisableConfirmed:$UpdatesDisableConfirmed -ManagerPreference $ManagerPreference
+            Invoke-WPFButtonAction -Button $Button -UpdatesDisableConfirmed:$UpdatesDisableConfirmed -ManagerPreference $ManagerPreference -OptimizationSetting $OptimizationSetting -OptimizationState $OptimizationState -OptimizationBackupPath $OptimizationBackupPath -OptimizationPreviewOnly:$OptimizationPreviewOnly
         }
         return
     }
@@ -127,7 +187,11 @@ function Invoke-WPFButtonAction {
     Param (
         [string]$Button,
         [switch]$UpdatesDisableConfirmed,
-        [string]$ManagerPreference = $sync.preferences.packagemanager
+        [string]$ManagerPreference = $sync.preferences.packagemanager,
+        [string]$OptimizationSetting,
+        [string]$OptimizationState,
+        [string]$OptimizationBackupPath,
+        [switch]$OptimizationPreviewOnly
     )
 
     # Check if button is defined in feature config with function or InvokeScript
@@ -198,6 +262,19 @@ function Invoke-WPFButtonAction {
                     }
                 }
             }
+        }
+        "WPFOptBrowseBackup" {
+            $dialog = New-Object Microsoft.Win32.OpenFileDialog
+            $dialog.Title = "Select a WinUtil experience backup"
+            $dialog.Filter = "JSON backup (*.json)|*.json|All files (*.*)|*.*"
+            $dialog.CheckFileExists = $true
+            if ($dialog.ShowDialog($sync.Form)) {
+                $sync.WPFOptBackupPath.Text = $dialog.FileName
+            }
+            break
+        }
+        "WPFOpt*" {
+            Invoke-WinUtilOptimizationAction -Button $Button -Setting $OptimizationSetting -State $OptimizationState -BackupPath $OptimizationBackupPath -PreviewOnly:$OptimizationPreviewOnly
         }
         # Closing may be declined, or leave a job running that outlives the window, so the
         # goodbye belongs at the point the process actually ends rather than here
